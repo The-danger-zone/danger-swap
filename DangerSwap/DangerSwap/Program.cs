@@ -1,7 +1,17 @@
+using DangerSwap.DbContexts;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+ConfigurationManager configurations = builder.Configuration;
+
+builder.Services.AddDbContext<DangerSwapContext>(
+    options => options.UseSqlite
+    (configurations.GetConnectionString("DangerSwapContext")
+    ));
 
 var app = builder.Build();
 

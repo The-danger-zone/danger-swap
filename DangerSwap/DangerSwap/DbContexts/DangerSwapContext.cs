@@ -8,6 +8,6 @@ namespace DangerSwap.DbContexts
         public DangerSwapContext(DbContextOptions<DangerSwapContext> options) 
             : base(options)
         { }
-
+        public DbSet<User> Users { get; set; } = null!;
     }
 }

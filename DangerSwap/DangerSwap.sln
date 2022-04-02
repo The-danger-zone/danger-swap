@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DangerSwap", "DangerSwap\DangerSwap.csproj", "{11638668-7A71-41A3-92A4-6C9FC8F0707E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11638668-7A71-41A3-92A4-6C9FC8F0707E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11638668-7A71-41A3-92A4-6C9FC8F0707E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11638668-7A71-41A3-92A4-6C9FC8F0707E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11638668-7A71-41A3-92A4-6C9FC8F0707E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {28BBE4B0-61E6-4C26-847E-040EDB39E202}
+	EndGlobalSection
+EndGlobal

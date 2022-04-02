@@ -1,5 +1,8 @@
 using DangerSwap.DbContexts;
+using DangerSwap.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,16 @@ builder.Services.AddDbContext<DangerSwapContext>(
     options => options.UseSqlite
     (configurations.GetConnectionString("DangerSwapContext")
     ));
+
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<DangerSwapContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddScoped<UserManager<User>>();
+builder.Services.ConfigureApplicationCookie(config =>
+{
+    config.LoginPath = "/Authorization/Login";
+});
 
 var app = builder.Build();
 
@@ -27,6 +40,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

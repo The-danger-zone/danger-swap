@@ -1,29 +1,29 @@
 ﻿using DangerSwap.Infrastructure;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DangerSwap.Models
 {
-    public class User
+    public class User : IdentityUser
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         [Required]
         [StringLength(StringLengthConst.defaultString)]
-        public string Username { get; set; } = null!;
+        public override string UserName { get; set; } = string.Empty;
         [Required]
         [StringLength(StringLengthConst.defaultString)]
         [MinLength(StringLengthConst.minPasswordLength)]
-        public string Password { get; set; } = null!;
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = string.Empty;
         [Required]
         [StringLength(StringLengthConst.defaultString)]
-        public string Email { get; set; } = null!;
+        public override string Email { get; set; } = string.Empty;
         [Required]
         [StringLength(StringLengthConst.defaultString)]
-        public string Citizenship { get; set; } = null!;
+        public string Citizenship { get; set; } = string.Empty;
         [Required]
         [StringLength(StringLengthConst.defaultString)]
-        public string Nationality { get; set; } = null!;
+        public string Nationality { get; set; } = string.Empty;
         [Required]
         public DateTime BirthDate { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DangerSwap", "DangerSwap\DangerSwap.csproj", "{11638668-7A71-41A3-92A4-6C9FC8F0707E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DangerSwap", "DangerSwap\DangerSwap.csproj", "{11638668-7A71-41A3-92A4-6C9FC8F0707E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DangerSwap.Test", "DangerSwap.Test\DangerSwap.Test.csproj", "{3CA64AD9-5F74-4E53-A733-49762B5C9434}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{11638668-7A71-41A3-92A4-6C9FC8F0707E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11638668-7A71-41A3-92A4-6C9FC8F0707E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11638668-7A71-41A3-92A4-6C9FC8F0707E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CA64AD9-5F74-4E53-A733-49762B5C9434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CA64AD9-5F74-4E53-A733-49762B5C9434}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CA64AD9-5F74-4E53-A733-49762B5C9434}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CA64AD9-5F74-4E53-A733-49762B5C9434}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

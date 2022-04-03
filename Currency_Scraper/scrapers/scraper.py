@@ -20,4 +20,12 @@ def get_data():
     else:
         print("Connection is lost")
 
-    return currency_dict
+    return currency_dict 
+
+def currency_filter(dictionary):
+    filtered_dict = {}
+    for key, values in dictionary.items():
+        if key == 'Euro' or key == 'British Pound' or key == 'Chinese Yuan Renminbi':
+            filtered_dict[key] = values
+
+    return filtered_dict

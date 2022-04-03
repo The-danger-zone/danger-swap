@@ -1,23 +1,20 @@
 ﻿using DangerSwap.DbContexts;
 using DangerSwap.Models;
-using Microsoft.AspNetCore.Http;
+using DangerSwap.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace DangerSwap.Controllers
 {
     public class AuthorizationController : Controller
     {
-        private readonly UserManager<User> _userManager;
+        private readonly UserRepository _userRepository;
         private readonly SignInManager<User> _signInManager;
-        private readonly DangerSwapContext _dbContext;
 
-        public AuthorizationController(UserManager<User> userManager, SignInManager<User> signInManager, DangerSwapContext dbContext)
+        public AuthorizationController(UserRepository userRepository, SignInManager<User> signInManager)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _dbContext = dbContext;
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
         }
 
         [HttpGet]
@@ -32,7 +29,7 @@ namespace DangerSwap.Controllers
         {
             if (ModelState.IsValid)
             {
-               var result = await _userManager.CreateAsync(user, user.Password);
+               var result = await _userRepository.CreateEntity(user);
                 if (result.Succeeded)
                 {
                     return View(nameof(Login));
@@ -57,11 +54,11 @@ namespace DangerSwap.Controllers
         {
             try
             {
-                var user = _dbContext.Users.First(q => q.Email == email);
+                var user = await _userRepository.GetEntity(email, password);
                 var identityResult = await _signInManager.PasswordSignInAsync(user, password, false, false);
                 if (identityResult.Succeeded)
                 {
-                    return RedirectToAction("/", nameof(HomeController));
+                    return Redirect("/");
                 }
             }
             catch (Exception)

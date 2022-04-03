@@ -1,5 +1,6 @@
 using DangerSwap.DbContexts;
 using DangerSwap.Models;
+using DangerSwap.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,7 @@ builder.Services.AddIdentity<User, IdentityRole>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<UserManager<User>>();
+builder.Services.AddScoped<UserRepository>();
 builder.Services.ConfigureApplicationCookie(config =>
 {
     double expirationTimeSeconds;

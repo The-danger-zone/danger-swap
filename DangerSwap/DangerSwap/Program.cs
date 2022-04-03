@@ -23,7 +23,17 @@ builder.Services.AddIdentity<User, IdentityRole>()
 builder.Services.AddScoped<UserManager<User>>();
 builder.Services.ConfigureApplicationCookie(config =>
 {
+    double expirationTimeSeconds;
+    try
+    {
+        expirationTimeSeconds = double.Parse(configurations["SessionTime"]);
+    } catch (Exception)
+    {
+        expirationTimeSeconds = 3600;
+    }
+    config.ExpireTimeSpan = TimeSpan.FromSeconds(expirationTimeSeconds);
     config.LoginPath = "/Authorization/Login";
+    config.SlidingExpiration = true;
 });
 
 var app = builder.Build();

@@ -11,6 +11,7 @@ if __name__ == "__main__":
     required_coins = ['BTC', 'ETH', 'ADA', 'DOT']
 
     while True:
+        try:
             coins = scrapers.scrape_coingecko.get_data()
 
             if not coins:
@@ -20,3 +21,5 @@ if __name__ == "__main__":
             json_coins = json_parser.parse(filtered_coins)
 
             time.sleep(10)
+        except:
+            raise TypeError

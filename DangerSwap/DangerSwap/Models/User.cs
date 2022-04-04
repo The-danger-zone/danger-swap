@@ -28,5 +28,6 @@ namespace DangerSwap.Models
         public DateTime BirthDate { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public ICollection<Transaction> Transactions { get; set; } 
     }
 }

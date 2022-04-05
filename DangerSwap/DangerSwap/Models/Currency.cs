@@ -1,5 +1,6 @@
 ﻿using DangerSwap.Infrastructure;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DangerSwap.Models
 {
@@ -15,5 +16,8 @@ namespace DangerSwap.Models
         public bool IsFiat { get; set; }
         [StringLength(StringLengthConst.description)]
         public string Description { get; set; }
+        [ForeignKey("Rate")]
+        public string RateId { get; set; }
+        public Rate Rate { get; set; }
     }
 }

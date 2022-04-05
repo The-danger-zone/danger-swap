@@ -15,7 +15,10 @@
             </div>
             <div class="mb-3">
                 <label class="form-label" asp-for="Password">Password</label>
+                <div class="input-group">
                 <input type="password" asp-for="Password" class="form-control" />
+                <span class="input-group-text"><i class="far fa-eye" id="togglePassword"></i></span>
+                </div>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="mb-3">

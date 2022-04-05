@@ -13,5 +13,6 @@ namespace DangerSwap.DbContexts
         public DbSet<Transaction> Transactions { get; set; } = null!;
         public DbSet<Currency> Currencies { get; set; } = null!;
         public DbSet<Rate> Rate { get; set; } = null!;
+        public DbSet<TransactionCurrency> TransactionCurrencies { get; set; } = null!;
     }
 }

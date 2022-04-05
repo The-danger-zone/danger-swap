@@ -10,5 +10,6 @@ namespace DangerSwap.DbContexts
             : base(options)
         { }
         public override DbSet<User> Users { get; set; } = null!;
+        public DbSet<Transaction> Transactions { get; set; } = null!;
     }
 }

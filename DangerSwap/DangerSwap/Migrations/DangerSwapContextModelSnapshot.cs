@@ -57,7 +57,7 @@ namespace DangerSwap.Migrations
 
                     b.HasIndex("RateId");
 
-                    b.ToTable("Currencies");
+                    b.ToTable("Currencies", (string)null);
                 });
 
             modelBuilder.Entity("DangerSwap.Models.Rate", b =>
@@ -79,7 +79,7 @@ namespace DangerSwap.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rate");
+                    b.ToTable("Rate", (string)null);
                 });
 
             modelBuilder.Entity("DangerSwap.Models.Transaction", b =>
@@ -110,7 +110,7 @@ namespace DangerSwap.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Transactions");
+                    b.ToTable("Transactions", (string)null);
                 });
 
             modelBuilder.Entity("DangerSwap.Models.TransactionCurrency", b =>
@@ -147,7 +147,7 @@ namespace DangerSwap.Migrations
 
                     b.HasIndex("TransactionId");
 
-                    b.ToTable("TransactionCurrencies");
+                    b.ToTable("TransactionCurrencies", (string)null);
                 });
 
             modelBuilder.Entity("DangerSwap.Models.User", b =>

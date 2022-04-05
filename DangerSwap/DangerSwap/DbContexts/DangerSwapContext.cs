@@ -11,5 +11,6 @@ namespace DangerSwap.DbContexts
         { }
         public override DbSet<User> Users { get; set; } = null!;
         public DbSet<Transaction> Transactions { get; set; } = null!;
+        public DbSet<Currency> Currencies { get; set; } = null!;
     }
 }

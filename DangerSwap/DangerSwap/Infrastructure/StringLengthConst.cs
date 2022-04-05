@@ -6,5 +6,7 @@
         public const int email = 254;
         public const int defaultString = 30;
         public const int minPasswordLength = 8;
+        public const int symbol = 10;
+        public const int description = 500;
     }
 }

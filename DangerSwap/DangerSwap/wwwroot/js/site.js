@@ -1,4 +1,14 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿"use strict";
 
-// Write your JavaScript code.
+$(document).ready(function () {
+    $('#togglePassword').on('click', function (event) {
+        toggleEyeLashIcon();
+        let input = event.currentTarget.parentElement.previousElementSibling;
+        input.type = input.type === 'password' ? 'text' : 'password';
+    });
+
+    function toggleEyeLashIcon() {
+        const eyeSlashed = 'fa-eye-slash';
+        $('#togglePassword').toggleClass(eyeSlashed);
+    }
+});

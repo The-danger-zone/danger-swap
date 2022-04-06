@@ -103,6 +103,85 @@ namespace DangerSwap.Test.DbContext
             Assert.True(result);
         }
 
+        [Theory]
+        [MemberData(nameof(CorrectUpdateData))]
+        public async Task UpdateUser_User_SuccessfullyUpdateEntity(User user)
+        {
+            // Arrange
+            using var context = new DangerSwapContext(_options);
+            PrepareInMemoryDatabase(context);
+            await CreateDummyUsers(context);
+
+            //Act 
+            var oldUser = await context.Users
+                .FirstAsync(t => t.UserName == user.UserName);
+            OverrideOldUser(oldUser, user);
+            await _userRepository.UpdateEntity(oldUser);
+
+            //Assert
+            Assert.Equal(oldUser.UserName, user.UserName);
+            Assert.Equal(oldUser.Email, user.Email);
+            Assert.Equal(oldUser.Citizenship, user.Citizenship);
+            Assert.Equal(oldUser.Nationality, user.Nationality);
+            Assert.Equal(oldUser.BirthDate, user.BirthDate);
+        }
+        private void OverrideOldUser(User oldUser, User newUser)
+        {
+            oldUser.UserName = newUser.UserName;
+            oldUser.Password = newUser.Password;
+            oldUser.Email = newUser.Email;
+            oldUser.Nationality = newUser.Nationality;
+            oldUser.Citizenship = newUser.Citizenship;
+            oldUser.BirthDate = newUser.BirthDate;
+        }
+        private static IEnumerable<object[]> CorrectUpdateData()
+        {
+            yield return new object[] {
+                new User
+                {
+                    UserName = "JohnDoe",
+                    Email = "newjohn@doe",
+                    Citizenship = "Unknown",
+                    Nationality = "Unknown",
+                    Password = "asdFGH123!@#$",
+                    BirthDate = DateTime.Now,
+                }
+            };
+            yield return new object[] {
+                new User
+                {
+                    UserName = "JaneDoe",
+                    Email = "jane@doe",
+                    Citizenship = "Lithuanian",
+                    Nationality = "Unknown",
+                    Password = "asdFGH123!@#$",
+                    BirthDate = DateTime.Now,
+                }
+            };
+            yield return new object[] {
+                new User
+                {
+                    UserName = "RickDoe",
+                    Email = "john@doe",
+                    Citizenship = "Unknown",
+                    Nationality = "Bulgarian",
+                    Password = "asdFGH123!@#$",
+                    BirthDate = DateTime.Now,
+                }
+            };
+            yield return new object[] {
+                new User
+                {
+                    UserName = "JohnDoe",
+                    Email = "john@doe",
+                    Citizenship = "Unknown",
+                    Nationality = "Unknown",
+                    Password = "newInteristingp$w3",
+                    BirthDate = DateTime.Now,
+                }
+            };
+        }
+
         [Fact]
         public async Task IsAny_WrongId_UserNotFound()
         {

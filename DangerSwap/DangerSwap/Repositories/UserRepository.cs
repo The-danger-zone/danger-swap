@@ -22,12 +22,13 @@ namespace DangerSwap.Repositories
             return await _userManager.CreateAsync(entity, entity.Password);
         }
 
-        public void DeleteEntity(string id)
+        public async Task DeleteEntity(string id)
         {
             var user = _dbContext.Users.FirstOrDefault(t => t.Id == id);
             if (user != default)
             {
                 _dbContext.Users.Remove(user);
+                await _dbContext.SaveChangesAsync();
             }
             else
             {

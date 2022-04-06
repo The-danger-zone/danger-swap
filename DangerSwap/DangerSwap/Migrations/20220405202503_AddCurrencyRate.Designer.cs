@@ -3,6 +3,7 @@ using System;
 using DangerSwap.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DangerSwap.Migrations
 {
     [DbContext(typeof(DangerSwapContext))]
-    partial class DangerSwapContextModelSnapshot : ModelSnapshot
+    [Migration("20220405202503_AddCurrencyRate")]
+    partial class AddCurrencyRate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.3");
@@ -57,7 +59,7 @@ namespace DangerSwap.Migrations
 
                     b.HasIndex("RateId");
 
-                    b.ToTable("Currencies", (string)null);
+                    b.ToTable("Currencies");
                 });
 
             modelBuilder.Entity("DangerSwap.Models.Rate", b =>
@@ -79,7 +81,7 @@ namespace DangerSwap.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rate", (string)null);
+                    b.ToTable("Rate");
                 });
 
             modelBuilder.Entity("DangerSwap.Models.Transaction", b =>
@@ -110,44 +112,7 @@ namespace DangerSwap.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Transactions", (string)null);
-                });
-
-            modelBuilder.Entity("DangerSwap.Models.TransactionCurrency", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FromId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("ModifiedAt")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ToId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("TransactionId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FromId");
-
-                    b.HasIndex("ToId");
-
-                    b.HasIndex("TransactionId");
-
-                    b.ToTable("TransactionCurrencies", (string)null);
+                    b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("DangerSwap.Models.User", b =>
@@ -386,33 +351,6 @@ namespace DangerSwap.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("DangerSwap.Models.TransactionCurrency", b =>
-                {
-                    b.HasOne("DangerSwap.Models.Currency", "FromCurrency")
-                        .WithMany()
-                        .HasForeignKey("FromId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DangerSwap.Models.Currency", "ToCurrency")
-                        .WithMany()
-                        .HasForeignKey("ToId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DangerSwap.Models.Transaction", "Transaction")
-                        .WithMany()
-                        .HasForeignKey("TransactionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("FromCurrency");
-
-                    b.Navigation("ToCurrency");
-
-                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

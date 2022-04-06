@@ -11,12 +11,12 @@ namespace DangerSwap.Models
         [StringLength(StringLengthConst.defaultString)]
         public override string UserName { get; set; } = string.Empty;
         [Required]
-        [StringLength(StringLengthConst.defaultString)]
+        [StringLength(StringLengthConst.password)]
         [MinLength(StringLengthConst.minPasswordLength)]
         [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
         [Required]
-        [StringLength(StringLengthConst.defaultString)]
+        [StringLength(StringLengthConst.email)]
         public override string Email { get; set; } = string.Empty;
         [Required]
         [StringLength(StringLengthConst.defaultString)]

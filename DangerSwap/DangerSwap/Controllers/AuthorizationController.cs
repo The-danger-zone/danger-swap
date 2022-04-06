@@ -67,5 +67,13 @@ namespace DangerSwap.Controllers
             }
             return View(nameof(Login));
         }
+
+        [HttpPost]
+        public async Task<ActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction(nameof(Login));
+        }
     }
 }

@@ -1,0 +1,38 @@
+name: build and test
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+    - '**.py'
+  pull_request:
+    branches: [ main, development ]
+    paths:
+    - '**.py'
+env:
+  PYTHON_VERSION: '3.9'
+jobs:
+  build-and-test:
+    name: build-and-test-${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: Install package
+      run: python setup.py install
+
+    - name: Install pytest
+      run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+
+    - name: Test
+      run: pytest tests/test*

@@ -35,6 +35,7 @@ jobs:
           pip install pytest
 
     - name: Test
-      run: python -m unittest
+      working-directory: ./Crypto_Scraper/
+      run: python -m pytest
 
 

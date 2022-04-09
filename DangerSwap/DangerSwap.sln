@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DangerSwap", "DangerSwap\Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DangerSwap.Test", "DangerSwap.Test\DangerSwap.Test.csproj", "{3CA64AD9-5F74-4E53-A733-49762B5C9434}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DangerSwapTests", "DangerSwapTests\DangerSwapTests.csproj", "{71EAA707-0EAA-41CB-955E-B4CC1EA5A5F4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{3CA64AD9-5F74-4E53-A733-49762B5C9434}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CA64AD9-5F74-4E53-A733-49762B5C9434}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CA64AD9-5F74-4E53-A733-49762B5C9434}.Release|Any CPU.Build.0 = Release|Any CPU
-		{71EAA707-0EAA-41CB-955E-B4CC1EA5A5F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71EAA707-0EAA-41CB-955E-B4CC1EA5A5F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71EAA707-0EAA-41CB-955E-B4CC1EA5A5F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71EAA707-0EAA-41CB-955E-B4CC1EA5A5F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

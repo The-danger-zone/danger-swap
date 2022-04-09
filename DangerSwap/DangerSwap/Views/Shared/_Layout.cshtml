@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/DangerSwap.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/fontawesome.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous" />
 </head>
 <body>
     @if (User.Identity.IsAuthenticated)
@@ -29,14 +30,13 @@
                             </li>
                         </ul>
                     </div>
+                    <div class="mr-2">
+                        <partial name="_LoginStatusPartial" />
+                    </div>
                 </div>
-                <div class="mr-2">
-                    <partial name="_LoginStatusPartial" />
-                </div>
-            </div>
-        </nav>
-    </header>
-  }
+            </nav>
+        </header>
+    }
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

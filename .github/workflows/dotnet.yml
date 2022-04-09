@@ -5,15 +5,15 @@ on:
     branches: 
       - main
     paths:
-    - '**.cs'
-    - '**.csproj'
+    - '*.cs'
+    - '*.csproj'
   pull_request:
     branches: 
       - main 
       - development
     paths:
-    - '**.cs'
-    - '**.csproj'
+    - '*.cs'
+    - '*.csproj'
 env:
   DOTNET_VERSION: '6.0'
 jobs:

@@ -1,0 +1,40 @@
+﻿@model Transaction
+@using DangerSwap.Infrastructure
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<form asp-controller="Converter" asp-action="Convert" method="post">
+    <div class="mb-3 pt-4">
+        <select asp-for="TransactionCurrency.FromId" class="form-select">
+            <option value="">Choose Fiat Currency</option>
+            @foreach (var item in ViewBag.FiatCurrencies)
+            {
+                <option value=@item.Id>@item.Symbol | @item.Rate.RateUsd</option>
+            }
+        </select>
+          <span asp-validation-for="TransactionCurrency.FromId" class="text-danger"></span>
+    </div>
+
+
+    <div class="mb-3 pt-4">
+        <select asp-for="TransactionCurrency.ToId" class="form-select">
+            <option value="">Choose Crypto Currency</option>
+            @foreach (var item in ViewBag.CryptoCurrencies)
+            {
+                <option value=@item.Id>@item.Symbol</option>
+            }
+        </select>
+          <span asp-validation-for="TransactionCurrency.ToId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3 pt-4">
+        <input type="text" asp-for="Amount" class="form-control" placeholder="Amount" />
+        <span asp-validation-for="Amount" class="text-danger"></span>
+    </div>
+
+    <input type="submit" class="btn btn-primary float-start btn-block w-25" value="Log In" />
+</form>
+    <div class="mb-3 pt-4">
+        <input type="text" class="form-control" disabled value="@ViewBag.EqualAmount" />
+    </div>

@@ -1,16 +1,14 @@
-name: build and test
+name: build and test .net environment
 
 on:
   push:
-    branches: [ main ]
-    paths:
-    - '**.cs'
-    - '**.csproj'
+    branches: 
+      - main 
   pull_request:
-    branches: [ main, development ]
-    paths:
-    - '**.cs'
-    - '**.csproj'
+    branches: 
+      - main 
+      - development
+  workflow_dispatch:
 env:
   DOTNET_VERSION: '6.0'
 jobs:
@@ -30,9 +28,12 @@ jobs:
         
     - name: Restore dependencies
       run: dotnet restore
+      working-directory: ./DangerSwap/ 
       
     - name: Build
       run: dotnet build --no-restore
+      working-directory: ./DangerSwap/ 
       
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+      working-directory: ./DangerSwap/ 

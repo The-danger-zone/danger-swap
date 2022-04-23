@@ -3,6 +3,7 @@ using System;
 using DangerSwap.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DangerSwap.Migrations
 {
     [DbContext(typeof(DangerSwapContext))]
-    partial class DangerSwapContextModelSnapshot : ModelSnapshot
+    [Migration("20220409121826_AddRelationshipBetweenTransactionAndTransactionCurrency")]
+    partial class AddRelationshipBetweenTransactionAndTransactionCurrency
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.3");
@@ -45,6 +47,7 @@ namespace DangerSwap.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("RateId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Symbol")
@@ -56,7 +59,7 @@ namespace DangerSwap.Migrations
 
                     b.HasIndex("RateId");
 
-                    b.ToTable("Currencies", (string)null);
+                    b.ToTable("Currencies");
                 });
 
             modelBuilder.Entity("DangerSwap.Models.Rate", b =>
@@ -78,7 +81,7 @@ namespace DangerSwap.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rate", (string)null);
+                    b.ToTable("Rate");
                 });
 
             modelBuilder.Entity("DangerSwap.Models.Transaction", b =>
@@ -109,7 +112,7 @@ namespace DangerSwap.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Transactions", (string)null);
+                    b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("DangerSwap.Models.TransactionCurrency", b =>
@@ -147,7 +150,7 @@ namespace DangerSwap.Migrations
                     b.HasIndex("TransactionId")
                         .IsUnique();
 
-                    b.ToTable("TransactionCurrencies", (string)null);
+                    b.ToTable("TransactionCurrencies");
                 });
 
             modelBuilder.Entity("DangerSwap.Models.User", b =>
@@ -370,7 +373,9 @@ namespace DangerSwap.Migrations
                 {
                     b.HasOne("DangerSwap.Models.Rate", "Rate")
                         .WithMany()
-                        .HasForeignKey("RateId");
+                        .HasForeignKey("RateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Rate");
                 });

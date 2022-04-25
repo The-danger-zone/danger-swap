@@ -21,6 +21,6 @@ def get_data():
         except AttributeError:
             continue
 
-        data.append({"name": name, "symbol": symbol, "price": price_usdt, "change": change_24})
+        data.append({"name": name, "symbol": symbol, "price": float(price_usdt[1:].replace(",","")), "change": change_24})
    
     return data

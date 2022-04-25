@@ -1,4 +1,3 @@
-from asyncore import write
 import time
 
 import scrapers.scrape_coingecko
@@ -23,6 +22,6 @@ if __name__ == "__main__":
 
             write_to_file(parse(filtered_coins))
 
-            time.sleep(10)
+            time.sleep(60)
         except:
             raise TypeError

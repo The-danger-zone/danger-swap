@@ -3,7 +3,7 @@ import time
 import scrapers.scrape_coingecko
 import scrapers.scrape_coinlib
 from filters.crypto_filter import filter_coins
-from parsers import json_parser
+from utils import database
 
 
 if __name__ == "__main__":
@@ -18,7 +18,11 @@ if __name__ == "__main__":
                 coins = scrapers.scrape_coinlib.get_data() 
 
             filtered_coins = filter_coins(coins, required_coins)
-            json_coins = json_parser.parse(filtered_coins)
+
+            conn = database.create_connection()
+            with conn:
+                for coin in coins:
+                    database.update_rate(conn, (coin["price"], coin["symbol"]))
 
             time.sleep(10)
         except:

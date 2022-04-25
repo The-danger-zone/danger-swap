@@ -3,7 +3,8 @@ import time
 import scrapers.scrape_coingecko
 import scrapers.scrape_coinlib
 from filters.crypto_filter import filter_coins
-from parsers import json_parser
+from parsers.json_parser import parse
+from utils.file_writer import write_to_file
 
 
 if __name__ == "__main__":
@@ -18,8 +19,9 @@ if __name__ == "__main__":
                 coins = scrapers.scrape_coinlib.get_data() 
 
             filtered_coins = filter_coins(coins, required_coins)
-            json_coins = json_parser.parse(filtered_coins)
 
-            time.sleep(10)
+            write_to_file(parse(filtered_coins))
+
+            time.sleep(60)
         except:
             raise TypeError

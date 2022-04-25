@@ -19,9 +19,20 @@ def update_rate(conn, coin):
     """
     Update currency rate
     """
-    sql = ''' UPDATE Rate
+    sql = '''UPDATE Rate
               SET Rate = ?
               WHERE Currency = ?'''
+    cur = conn.cursor()
+    cur.execute(sql, coin)
+    conn.commit()
+
+def insert_rate(conn, coin):
+    """
+    Insert currency rate
+    """
+    sql = '''INSERT INTO Rate
+            (Currency, Rate)
+            VALUES(?)'''
     cur = conn.cursor()
     cur.execute(sql, coin)
     conn.commit()

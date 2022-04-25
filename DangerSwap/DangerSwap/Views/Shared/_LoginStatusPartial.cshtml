@@ -1,7 +1,13 @@
-﻿@if (User.Identity.IsAuthenticated){
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <form method="post" class="form-inline" asp-controller="Authorization" asp-action="Logout">
-        <span>Howdy, @User.Identity.Name</span>
-        <button type="submit" class="m-lg-2 btn btn-link">Logout</button>
+        <!--Redirect i profile page paspaudus ant nuotraukos, ne logout-->
+    <span>@User.Identity.Name </span>
+        <button type="submit" class="ms-3 btn profileButton">
+            <i class="fa fa-user"></i>
+        </button>
     </form>
 }
 else

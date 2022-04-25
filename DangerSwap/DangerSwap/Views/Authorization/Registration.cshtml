@@ -27,7 +27,7 @@
                         <option value="">Choose your Citizenship</option>
                         @foreach (string nationality in NationalitySelector.GetCountryNames())
                         {
-                            <option value=@nationality>@nationality</option>
+                                <option value=@nationality>@nationality</option>
                         }
                     </select>
                     <span asp-validation-for="Citizenship" class="text-danger"></span>
@@ -37,7 +37,7 @@
                         <option value="">Choose your Nationality</option>
                         @foreach (string nationality in NationalitySelector.GetCountryNames())
                         {
-                            <option value=@nationality>@nationality</option>
+                                <option value=@nationality>@nationality</option>
                         }
                     </select>
                     <span asp-validation-for="Nationality" class="text-danger"></span>

@@ -1,9 +1,9 @@
 using DangerSwap.DbContexts;
 using DangerSwap.Models;
 using DangerSwap.Repositories;
+using DangerSwap.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +24,8 @@ builder.Services.AddIdentity<User, IdentityRole>()
 builder.Services.AddScoped<UserManager<User>>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<ConverterRepository>();
+builder.Services.AddScoped<ScrapperService>(config => 
+new ScrapperService(configurations));
 builder.Services.ConfigureApplicationCookie(config =>
 {
     double expirationTimeSeconds;

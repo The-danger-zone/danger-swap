@@ -23,12 +23,4 @@ def get_data():
 
     return currency_dict
 
-def currency_filter(dictionary):
-    filtered_dict = {}
-    keyCurrencyValues = ['Euro', 'British Pound', 'Chinese Yuan Renminbi']
 
-    for key, values in dictionary.items():
-        if key in keyCurrencyValues:
-            filtered_dict[key] = values
-
-    return filtered_dict

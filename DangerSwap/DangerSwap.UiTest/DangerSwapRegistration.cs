@@ -9,7 +9,7 @@ namespace DangerSwap.UiTest
     public class DangerSwapRegistrationTest
     {
         public const string RegistrationUrl = "https://localhost:7145/Authorization/Registration";
-        public const string SuccessfulRegistrationUrl = "https://localhost:7145/Authorization/Register";
+        public const string SuccessfulRegistrationUrl = "https://localhost:7145/";
 
         [Fact]
         public void LoadRegistrationPage()

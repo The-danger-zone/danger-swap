@@ -23,7 +23,9 @@ builder.Services.AddIdentity<User, IdentityRole>()
 
 builder.Services.AddScoped<UserManager<User>>();
 builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<CurrencyRepository>();
 builder.Services.AddScoped<ConverterRepository>();
+builder.Services.AddScoped<CurrencyService>();
 builder.Services.AddScoped<ScrapperService>(config => 
 new ScrapperService(configurations));
 builder.Services.ConfigureApplicationCookie(config =>

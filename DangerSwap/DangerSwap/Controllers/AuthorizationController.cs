@@ -32,7 +32,8 @@ namespace DangerSwap.Controllers
                 var result = await _userRepository.CreateEntity(user);
                 if (result.Succeeded)
                 {
-                    return View(nameof(Login));
+                    return Redirect("/Authorization/Login");
+
                 }
                 foreach (var error in result.Errors)
                 {

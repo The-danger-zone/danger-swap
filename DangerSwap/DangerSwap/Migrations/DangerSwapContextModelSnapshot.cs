@@ -36,7 +36,7 @@ namespace DangerSwap.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("ModifiedAt")
-                        .ValueGeneratedOnAddOrUpdate()
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -45,7 +45,6 @@ namespace DangerSwap.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("RateId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Symbol")
@@ -57,7 +56,7 @@ namespace DangerSwap.Migrations
 
                     b.HasIndex("RateId");
 
-                    b.ToTable("Currencies", (string)null);
+                    b.ToTable("Currencies");
                 });
 
             modelBuilder.Entity("DangerSwap.Models.Rate", b =>
@@ -71,7 +70,7 @@ namespace DangerSwap.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("ModifiedAt")
-                        .ValueGeneratedOnAddOrUpdate()
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<double>("RateUsd")
@@ -79,7 +78,7 @@ namespace DangerSwap.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rate", (string)null);
+                    b.ToTable("Rate");
                 });
 
             modelBuilder.Entity("DangerSwap.Models.Transaction", b =>
@@ -88,7 +87,8 @@ namespace DangerSwap.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Amount")
+                    b.Property<decimal?>("Amount")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
@@ -96,7 +96,7 @@ namespace DangerSwap.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("ModifiedAt")
-                        .ValueGeneratedOnAddOrUpdate()
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<double>("Rate")
@@ -110,7 +110,7 @@ namespace DangerSwap.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Transactions", (string)null);
+                    b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("DangerSwap.Models.TransactionCurrency", b =>
@@ -128,7 +128,7 @@ namespace DangerSwap.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("ModifiedAt")
-                        .ValueGeneratedOnAddOrUpdate()
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ToId")
@@ -145,9 +145,10 @@ namespace DangerSwap.Migrations
 
                     b.HasIndex("ToId");
 
-                    b.HasIndex("TransactionId");
+                    b.HasIndex("TransactionId")
+                        .IsUnique();
 
-                    b.ToTable("TransactionCurrencies", (string)null);
+                    b.ToTable("TransactionCurrencies");
                 });
 
             modelBuilder.Entity("DangerSwap.Models.User", b =>
@@ -203,7 +204,7 @@ namespace DangerSwap.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(30)
+                        .HasMaxLength(32)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
@@ -236,6 +237,29 @@ namespace DangerSwap.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
+                            AccessFailedCount = 0,
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Citizenship = "",
+                            ConcurrencyStamp = "b050a2e3-a1c3-4c6c-a187-b82cf6ddfba8",
+                            CreatedAt = new DateTime(2022, 4, 26, 22, 54, 42, 890, DateTimeKind.Utc).AddTicks(5013),
+                            Email = "admin@admin.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            Nationality = "",
+                            NormalizedEmail = "admin@admin.com",
+                            NormalizedUserName = "admin",
+                            Password = "Admin123#",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEuLD1dFigkTjmZRnQbEut6oXO0tE8rYl2tavqD8oqZceKgJxp35 + mGldf80qWJrHA ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -370,9 +394,7 @@ namespace DangerSwap.Migrations
                 {
                     b.HasOne("DangerSwap.Models.Rate", "Rate")
                         .WithMany()
-                        .HasForeignKey("RateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RateId");
 
                     b.Navigation("Rate");
                 });
@@ -403,8 +425,8 @@ namespace DangerSwap.Migrations
                         .IsRequired();
 
                     b.HasOne("DangerSwap.Models.Transaction", "Transaction")
-                        .WithMany()
-                        .HasForeignKey("TransactionId")
+                        .WithOne("TransactionCurrency")
+                        .HasForeignKey("DangerSwap.Models.TransactionCurrency", "TransactionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -463,6 +485,12 @@ namespace DangerSwap.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DangerSwap.Models.Transaction", b =>
+                {
+                    b.Navigation("TransactionCurrency")
                         .IsRequired();
                 });
 

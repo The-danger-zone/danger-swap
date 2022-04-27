@@ -29,12 +29,13 @@ namespace DangerSwap.Controllers
         {
             if (ModelState.IsValid)
             {
-               var result = await _userRepository.CreateEntity(user);
+                var result = await _userRepository.CreateEntity(user);
                 if (result.Succeeded)
                 {
-                    return View(nameof(Login));
+                    return Redirect("/Authorization/Login");
+
                 }
-                foreach(var error in result.Errors)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }

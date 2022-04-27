@@ -33,7 +33,33 @@ body {
     height: 10vh
 }
 
-#togglePassword:hover{
+#toggle-password:hover{
     cursor:pointer;
 }
+
+.currency-selection-fields {
+    width: 48%;
+}
+
+.website-font {
+    font-family: serif;
+}
+
+.converter-value-fields {
+    width: 45%;
+}
+
+.equality-sign {
+    width: 10%;
+    text-align:center;
+    background-color: white;
+}
+
+.profile-button {
+    height: 100%;
+    border-radius: 50%;
+    background-color:white;
+    border-color : black;
+}
+
 

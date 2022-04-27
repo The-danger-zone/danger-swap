@@ -1,0 +1,53 @@
+﻿@model Transaction
+@using DangerSwap.Infrastructure
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<form asp-controller="Converter" asp-action="Convert" method="post">
+    <label class="form-label row justify-content-center align-items-center website-font text-uppercase fs-1 fw-bold mt-5 mb-3">Converter</label>
+    <div class="mb-5 pt-4 mx-auto col-8 pb-4  ">
+        <select asp-for="TransactionCurrency.FromId" class="form-select float-start currency-selection-fields">
+            <option value="">Choose Fiat Currency</option>
+            @foreach (var item in ViewBag.FiatCurrencies)
+            {
+                <option value=@item.Id>@item.Symbol | @item.Rate.RateUsd</option>
+            }
+        </select>
+        <span asp-validation-for="TransactionCurrency.FromId" class="text-danger"></span>
+        <select asp-for="TransactionCurrency.ToId" class="form-select float-end currency-selection-fields">
+            <option value="">Choose Crypto Currency</option>
+            @foreach (var item in ViewBag.CryptoCurrencies)
+            {
+                <option value=@item.Id>@item.Symbol</option>
+            }
+        </select>
+        <span asp-validation-for="TransactionCurrency.ToId" class="text-danger"></span>
+
+    </div>
+
+    <div class="mb-5 pt-4 mx-auto col-8 mt-4">
+        <input type="text" asp-for="Amount" class="form-control float-start converter-value-fields" placeholder="Amount" />
+        <span asp-validation-for="Amount" class="text-danger"></span>
+        <input type="text" class="form-control float-end converter-value-fields" disabled value="@ViewBag.EqualAmount" />
+        <input type="text" class="form-control mb-4 equality-sign border-0" disabled value="=" />
+    </div>
+    <div class="text-center mb-3 pt-4 align-content-center ">
+        <input type="submit" class="btn btn-primary justify-content-center btn-block w-25" value="Convert" />
+    </div>
+    <label class="form-label row text-center justify-content-center align-items-center website-font text-uppercase fs-1 fw-bold mt-5 mb-3">Detailed currency information</label>
+    <div class="mb-5 pt-4 mx-auto col-8 pb-4">
+        <!--Redirect to detailed information form-->
+        <select class="form-select text-center">
+            <option value="">Choose currency</option>
+            @foreach (var item in ViewBag.CryptoCurrencies)
+            {
+                <option value=@item.Id>@item.Symbol</option>
+            }
+            @foreach (var item in ViewBag.FiatCurrencies)
+            {
+                <option value=@item.Id>@item.Symbol</option>
+            }
+        </select>
+    </div>
+</form>

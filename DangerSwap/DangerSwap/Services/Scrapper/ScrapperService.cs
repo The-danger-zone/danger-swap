@@ -14,6 +14,7 @@ namespace DangerSwap.Services
         private readonly string _cryptoRatesFileName = string.Empty;
         private readonly string _fiatRatesFileName = string.Empty;
         private readonly Tuple<string, string> _executionPaths;
+        public bool IsRunning { get; private set; } = false;
 
         public ScrapperService(ConfigurationManager configurations)
         {
@@ -31,14 +32,18 @@ namespace DangerSwap.Services
 
         public void RunScrappers()
         {
-            if (!IsInstalled())
+            if (!IsRunning)
             {
-                RunScript(_installationPath);
+                if (!IsInstalled())
+                {
+                    RunScript(_installationPath);
+                }
+                // Crypto
+                RunScript(_executionPaths.Item1, true);
+                // Fiat
+                RunScript(_executionPaths.Item2, true);
+                IsRunning = true;
             }
-            // Crypto
-            RunScript(_executionPaths.Item1, true);
-            // Fiat
-            //RunScript(_executionPaths.Item2);
         }
 
         private bool IsInstalled()

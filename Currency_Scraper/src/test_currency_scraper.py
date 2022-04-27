@@ -1,9 +1,9 @@
 import unittest
 
-from scrapers.scrape import get_data
+from scrapers.currency_scraper import get_data
 
-class TestScraper(unittest.TestCase):
 
+class MyTestCase(unittest.TestCase):
     def setUp(self):
         self.data = get_data()
 
@@ -13,9 +13,6 @@ class TestScraper(unittest.TestCase):
     def test_dict_length(self):
         self.assertEqual(10, len(self.data))
 
-    def test_price_length(self):
-        self.assertEqual(10, len(self.data.values()))
-
 
 if __name__ == '__main__':
-    unittest.main() 
+    unittest.main()

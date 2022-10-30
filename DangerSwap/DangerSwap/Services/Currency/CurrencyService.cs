@@ -5,6 +5,7 @@ namespace DangerSwap.Services
 {
     public class CurrencyService
     {
+        // Ernest
         private readonly CurrencyRepository _currencyRepository;
         private readonly ScrapperService _scrapperService;
         public CurrencyService(CurrencyRepository currencyRepository, ScrapperService scrapperService)

@@ -6,6 +6,7 @@ namespace DangerSwap.Services
 {
     public class ScrapperService
     {
+        // Ernest
         private readonly ConfigurationManager _configurations;
         private readonly string _installationPath = string.Empty;
         private readonly string _installationStatusFile = string.Empty;

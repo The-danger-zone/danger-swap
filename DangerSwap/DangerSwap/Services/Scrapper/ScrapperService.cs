@@ -76,19 +76,12 @@ namespace DangerSwap.Services
             }
         }
 
-        public IEnumerable<ScrappedCurrency>? ReadScrappedCurrencies(bool isFiat)
+        public IEnumerable<ScrappedCurrency> ReadScrappedCurrencies(bool isFiat)
         {
-            try
-            {
-                var cryptoRatesJson = File.ReadAllText(isFiat ? _executionPaths.Fiat + _fiatRatesFileName :
-                    _executionPaths.Crypto + _cryptoRatesFileName);
-                var currencies = JsonConvert.DeserializeObject<IEnumerable<ScrappedCurrency>>(cryptoRatesJson);
-                return currencies;
-            }
-            catch (Exception)
-            {
-                return Enumerable.Empty<ScrappedCurrency>();
-            }
+            var cryptoRatesJson = File.ReadAllText(isFiat ? _executionPaths.Fiat + _fiatRatesFileName :
+                _executionPaths.Crypto + _cryptoRatesFileName);
+            var currencies = JsonConvert.DeserializeObject<IEnumerable<ScrappedCurrency>>(cryptoRatesJson);
+            return currencies ?? Enumerable.Empty<ScrappedCurrency>();
         }
 
         private sealed record ExecutionPaths(string Fiat, string Crypto);

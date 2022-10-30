@@ -16,7 +16,7 @@ namespace DangerSwap.Services
 
         public async Task UpsertCurrenciesAsync(bool isFiat)
         {
-            var currencies = _scrapperService.ReadScrappedCurrencies(isFiat);
+            var currencies = _scrapperService.ReadScrappedCurrencies(isFiat).ToList();
             if (!currencies.Any())
             {
                 return;

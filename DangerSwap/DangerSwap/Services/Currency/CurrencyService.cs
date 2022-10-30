@@ -28,6 +28,7 @@ namespace DangerSwap.Services
                     } else
                     {
                         await UpdateCurrency(originCurrency, item);
+                        //
                     }
                 }
             }
@@ -57,6 +58,7 @@ namespace DangerSwap.Services
         private void OverrideCurrencyRate(Currency originCurrency, ScrappedCurrency scrappedCurrency)
         {
             originCurrency.Rate.RateUsd = scrappedCurrency.Price;
+            //
         }
     }
 }

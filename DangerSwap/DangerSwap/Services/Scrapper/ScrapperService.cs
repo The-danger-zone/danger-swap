@@ -15,7 +15,7 @@ namespace DangerSwap.Services
         private readonly string _cryptoRatesFileName = string.Empty;
         private readonly string _fiatRatesFileName = string.Empty;
         private readonly Tuple<string, string> _executionPaths;
-        public bool IsRunning { get; private set; } = false;
+        public bool IsRunning { get; private set; } = false; // 
 
         public ScrapperService(ConfigurationManager configurations)
         {
@@ -28,7 +28,7 @@ namespace DangerSwap.Services
             _scrapperInstallerFileName = _configurations["ScrapperInstallerFileName"];
             _scrapperExecutorFileName = _configurations["ScrapperExecutorFileName"];
             _cryptoRatesFileName = _configurations["CryptoRatesFileName"];
-            _fiatRatesFileName = _configurations["FiatRatesFileName"];
+            _fiatRatesFileName = _configurations["FiatRatesFileName"]; //
         }
 
         public void RunScrappers()
@@ -42,8 +42,8 @@ namespace DangerSwap.Services
                 // Crypto
                 RunScript(_executionPaths.Item1, true);
                 // Fiat
-                RunScript(_executionPaths.Item2, true);
-                IsRunning = true;
+                RunScript(_executionPaths.Item2, true) ;
+                IsRunning = true; //
             }
         }
 
@@ -60,7 +60,7 @@ namespace DangerSwap.Services
             }
         }
         // Todo: log caught errors
-        private bool RunScript(string executionPath, bool isScrapper = false)
+        private bool RunScript(string executionPath, bool isScrapper = false )
         {
             try
             {
@@ -71,7 +71,7 @@ namespace DangerSwap.Services
                 //process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden; do not use, untill scrapper dispose functionality is not written
                 process.Start();
                 if (!isScrapper)
-                    process.WaitForExit();
+                    process.WaitForExit() ;//
                 return true;
             }
             catch (Exception)
@@ -82,7 +82,7 @@ namespace DangerSwap.Services
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 #pragma warning disable CS8603 // Possible null reference return.
-        public IEnumerable<ScrappedCurrency> ReadScrappedCurrencies(bool isFiat)
+        public IEnumerable<ScrappedCurrency> ReadScrappedCurrencies(bool isFiat )
         {
             try
             {
@@ -92,7 +92,7 @@ namespace DangerSwap.Services
                 return currencies;
             } catch (Exception)
             {
-                return Enumerable.Empty<ScrappedCurrency>();
+                return Enumerable.Empty<ScrappedCurrency>();//
             }
         }
 #pragma warning restore CS8603 // Possible null reference return.

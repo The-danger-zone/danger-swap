@@ -1,5 +1,6 @@
 ﻿namespace DangerSwap.Infrastructure
 {
+    #Mindaugas
     public static class StringLengthConst
     {
         public const int email = 320;

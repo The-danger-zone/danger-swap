@@ -8,6 +8,7 @@ namespace DangerSwap.Repositories
 {
     public class UserRepository
     {
+        #Mindaugas
         private readonly UserManager<User> _userManager;
         private readonly DangerSwapContext _dbContext;
 
@@ -21,7 +22,7 @@ namespace DangerSwap.Repositories
         {
             return await _userManager.CreateAsync(entity, entity.Password);
         }
-
+#Mindaugas
         public async Task DeleteEntity(string id)
         {
             var user = _dbContext.Users.FirstOrDefault(t => t.Id == id);
@@ -37,7 +38,7 @@ namespace DangerSwap.Repositories
         }
 
         public async Task<IEnumerable<User>> GetEntitiesAsync() => await _dbContext.Users.ToListAsync();
-
+#Mindaugas
         public async Task<User> GetEntity(string id) => await _dbContext.Users.FirstOrDefaultAsync(t => t.Id == id);
         public async Task<User> GetEntityByUsername(string username) => await _dbContext.Users.FirstOrDefaultAsync(t => t.UserName == username);
         public async Task<User> GetEntity(string email, string password) => await _dbContext.Users

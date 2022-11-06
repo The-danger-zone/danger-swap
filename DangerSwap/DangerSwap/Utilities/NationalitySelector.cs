@@ -6,13 +6,9 @@
         //Mindaugas
         public static IEnumerable<string> GetCountryNames()
         {
-            List<string> countryNames = new List<string>();
+            var countryNames = new List<string>();
             CultureInfo[] cultureInfo = CultureInfo.GetCultures(CultureTypes.AllCultures & ~CultureTypes.NeutralCultures);
-            foreach(var culture in cultureInfo)
-            {
-                countryNames.Add(culture.DisplayName);
-            }
-            return countryNames;
+            return cultureInfo.Select(culture => culture.DisplayName).ToList();
         }
     }
 }

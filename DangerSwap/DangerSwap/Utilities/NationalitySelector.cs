@@ -3,7 +3,7 @@
     using System.Globalization;
     public static class NationalitySelector
     {
-        #Mindaugas
+        //Mindaugas
         public static IEnumerable<string> GetCountryNames()
         {
             List<string> countryNames = new List<string>();

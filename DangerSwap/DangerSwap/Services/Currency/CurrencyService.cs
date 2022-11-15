@@ -1,9 +1,10 @@
-﻿using DangerSwap.Models;
+﻿using DangerSwap.Interfaces;
+using DangerSwap.Models;
 using DangerSwap.Repositories;
 
 namespace DangerSwap.Services
 {
-    public class CurrencyService
+    public sealed class CurrencyService : ICurrencyService
     {
         private readonly CurrencyRepository _currencyRepository;
         private readonly ScrapperService _scrapperService;
@@ -13,26 +14,29 @@ namespace DangerSwap.Services
             _scrapperService = scrapperService;
         }
 
-        public async Task UploadCurrencies(bool isFiat)
+        public async Task UpsertCurrenciesAsync(bool isFiat)
         {
-            var currencies = _scrapperService.ReadScrappedCurrencies(isFiat);
-            if (currencies != null)
+            var currencies = _scrapperService.ReadScrappedCurrencies(isFiat).ToList();
+            if (!currencies.Any())
             {
-                foreach (var item in currencies)
+                return;
+            }
+
+            foreach (var item in currencies)
+            {
+                var originCurrency = await _currencyRepository.GetEntityBySymbol(item.Symbol);
+                if (originCurrency is null)
                 {
-                    var originCurrency = await _currencyRepository.GetEntityBySymbol(item.Symbol);
-                    if(originCurrency == null)
-                    {
-                        await CreateCurrency(item, isFiat);
-                    } else
-                    {
-                        await UpdateCurrency(originCurrency, item);
-                    }
+                    await CreateCurrencyAsync(item, isFiat);
+                }
+                else
+                {
+                    await UpdateCurrencyAsync(originCurrency, item);
                 }
             }
         }
 
-        private async Task CreateCurrency(ScrappedCurrency scrappedCurrency, bool isFiat)
+        private async Task CreateCurrencyAsync(ScrappedCurrency scrappedCurrency, bool isFiat)
         {
             var newCurrency = new Currency()
             {
@@ -47,15 +51,15 @@ namespace DangerSwap.Services
             await _currencyRepository.CreateEntity(newCurrency);
         }
 
-        private async Task UpdateCurrency(Currency originCurrency, ScrappedCurrency scrappedCurrency)
+        private async Task UpdateCurrencyAsync(Currency originCurrency, ScrappedCurrency scrappedCurrency)
         {
             OverrideCurrencyRate(originCurrency, scrappedCurrency);
             await _currencyRepository.UpdateEntity(originCurrency);
         }
 
-        private void OverrideCurrencyRate(Currency originCurrency, ScrappedCurrency scrappedCurrency)
+        private static void OverrideCurrencyRate(Currency originCurrency, ScrappedCurrency scrappedCurrency)
         {
-            originCurrency.Rate.RateUsd = scrappedCurrency.Price;
+            originCurrency.Rate!.RateUsd = scrappedCurrency.Price;
         }
     }
 }

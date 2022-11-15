@@ -1,4 +1,5 @@
 using DangerSwap.DbContexts;
+using DangerSwap.Interfaces;
 using DangerSwap.Models;
 using DangerSwap.Repositories;
 using DangerSwap.Services;
@@ -25,8 +26,8 @@ builder.Services.AddScoped<UserManager<User>>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<CurrencyRepository>();
 builder.Services.AddScoped<ConverterRepository>();
-builder.Services.AddScoped<CurrencyService>();
-builder.Services.AddSingleton<ScrapperService>(config => 
+builder.Services.AddScoped<ICurrencyService, CurrencyService>();
+builder.Services.AddSingleton<IScrapperService, ScrapperService>(config =>
 new ScrapperService(configurations));
 builder.Services.ConfigureApplicationCookie(config =>
 {
@@ -34,7 +35,8 @@ builder.Services.ConfigureApplicationCookie(config =>
     try
     {
         expirationTimeSeconds = double.Parse(configurations["SessionTime"]);
-    } catch (Exception)
+    }
+    catch (Exception)
     {
         expirationTimeSeconds = 3600;
     }

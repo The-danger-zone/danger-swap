@@ -33,7 +33,9 @@ namespace DangerSwap.Repositories
 
         public Task<Currency> GetEntity(Guid id)
         {
-            return _dbContext.Currencies.FirstAsync(e => e.Id == id.ToString());
+            return _dbContext.Currencies
+                .Include(q => q.Rate)
+                .FirstAsync(e => e.Id == id.ToString());
         }
 
         public Task<Currency?> GetEntityBySymbol(string symbol)

@@ -4,20 +4,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DangerSwap.Models
 {
-    public class Currency : BaseEntity
+    public sealed class Currency : BaseEntity
     {
         [Required]
         [StringLength(StringLengthConst.symbol)]
-        public string Symbol { get; set; } = string.Empty;
+        public string Symbol { get; set; } = null!;
         [Required]
         [StringLength(StringLengthConst.defaultString)]
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; } = null!;
         [Required]
         public bool IsFiat { get; set; }
         [StringLength(StringLengthConst.description)]
         public string Description { get; set; } = string.Empty;
-        [ForeignKey("Rate")]
-        public string? RateId { get; set; }
+
+        [ForeignKey("Rate")] 
+        public string? RateId { get; set; } = null!;
         public Rate? Rate { get; set; }
     }
 }

@@ -8,21 +8,21 @@ namespace DangerSwap.Models
     public class User : IdentityUser
     {
         [Required]
-        [StringLength(StringLengthConst.defaultString)]
+        [StringLength(StringLengthConst.DefaultString)]
         public override string UserName { get; set; } = string.Empty;
         [Required]
-        [StringLength(StringLengthConst.password)]
-        [MinLength(StringLengthConst.minPasswordLength)]
+        [StringLength(StringLengthConst.Password)]
+        [MinLength(StringLengthConst.MinPasswordLength)]
         [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
         [Required]
-        [StringLength(StringLengthConst.email)]
+        [StringLength(StringLengthConst.Email)]
         public override string Email { get; set; } = string.Empty;
         [Required]
-        [StringLength(StringLengthConst.defaultString)]
+        [StringLength(StringLengthConst.DefaultString)]
         public string Citizenship { get; set; } = string.Empty;
         [Required]
-        [StringLength(StringLengthConst.defaultString)]
+        [StringLength(StringLengthConst.DefaultString)]
         public string Nationality { get; set; } = string.Empty;
         [Required]
         public DateTime BirthDate { get; set; }

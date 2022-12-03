@@ -3,15 +3,11 @@
     using System.Globalization;
     public static class NationalitySelector
     {
+        //Mindaugas
         public static IEnumerable<string> GetCountryNames()
         {
-            List<string> countryNames = new List<string>();
-            CultureInfo[] cultureInfo = CultureInfo.GetCultures(CultureTypes.AllCultures & ~CultureTypes.NeutralCultures);
-            foreach(var culture in cultureInfo)
-            {
-                countryNames.Add(culture.DisplayName);
-            }
-            return countryNames;
+            var cultureInfo = CultureInfo.GetCultures(CultureTypes.AllCultures & ~CultureTypes.NeutralCultures);
+            return  cultureInfo.Select(culture => culture.DisplayName).ToList();
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using DangerSwap.Models;
 using DangerSwap.Repositories;
+using DangerSwap.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using DangerSwap.Interfaces;
 
 namespace DangerSwap.Controllers
 {
@@ -11,20 +13,31 @@ namespace DangerSwap.Controllers
     {
         private readonly ConverterRepository _converterRepository;
         private readonly UserRepository _userRepository;
+        private readonly IScrapperService _scrapperService;
+        private readonly ICurrencyService _currencyService;
 
-        public ConverterController(ConverterRepository converterRepository, UserRepository userRepository)
+        public ConverterController(ConverterRepository converterRepository, UserRepository userRepository, IScrapperService scrapperService, ICurrencyService currencyService)
         {
             _converterRepository = converterRepository;
             _userRepository = userRepository;
+            _scrapperService = scrapperService;
+            _currencyService = currencyService;
         }
 
-        public IActionResult Index(double equalAmount = 0.0)
+        //TODO: make a task manager to run scrappers
+        public async Task<IActionResult> Index(double equalAmount = 0.0)
         {
+            _scrapperService.RunScrappers();
+
             var fiatCurrencies = _converterRepository.GetAllCurrencies(true);
             var cryptoCurrencies = _converterRepository.GetAllCurrencies(false);
             ViewBag.FiatCurrencies = fiatCurrencies;
             ViewBag.CryptoCurrencies = cryptoCurrencies;
             ViewBag.EqualAmount = equalAmount.ToString("F99").TrimEnd('0');
+
+            await _currencyService.UpsertCurrenciesAsync(true);
+            await _currencyService.UpsertCurrenciesAsync(false);
+
             return View();
         }
 

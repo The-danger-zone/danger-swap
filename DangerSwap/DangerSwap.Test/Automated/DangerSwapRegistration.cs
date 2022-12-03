@@ -1,6 +1,5 @@
 ﻿using System;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using Xunit;
 
@@ -8,8 +7,9 @@ namespace DangerSwap.Test.Automated
 {
     public class DangerSwapRegistrationTest
     {
+        public const string BaseUrl = "https://localhost:7145/";
         public const string RegistrationUrl = "https://localhost:7145/Authorization/Registration";
-        public const string SuccessfulRegistrationUrl = "https://localhost:7145/";
+
 
         [SkippableFact]
         public void LoadRegistrationPage()
@@ -64,7 +64,7 @@ namespace DangerSwap.Test.Automated
         {
             var options = new OpenQA.Selenium.Chrome.ChromeOptions();
             options.BinaryLocation = @"C:\Program Files\Google\Chrome\Application\chrome.exe";
-            using (IWebDriver driver = new OpenQA.Selenium.Chrome.ChromeDriver(options))
+            using (IWebDriver driver = new OpenQA.Selenium.Chrome.ChromeDriver())
             {
                 driver.Navigate().GoToUrl(RegistrationUrl);
                 var validationErrors = driver.FindElements(By.ClassName("text-danger"));
@@ -227,7 +227,8 @@ namespace DangerSwap.Test.Automated
                 IWebElement datePicker = driver.FindElement(By.XPath("/html/body/div/main/div/div/form/div/div[6]/input"));
                 datePicker.SendKeys("07061995");
                 driver.FindElement(By.ClassName("btn-primary")).Click();
-                Assert.Equal(SuccessfulRegistrationUrl, driver.Url);
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+                Assert.Equal(BaseUrl + "Authorization/Register", driver.Url);
             }
         }
 
@@ -253,7 +254,8 @@ namespace DangerSwap.Test.Automated
                 IWebElement datePicker = driver.FindElement(By.XPath("/html/body/div/main/div/div/form/div/div[6]/input"));
                 datePicker.SendKeys("07061995");
                 driver.FindElement(By.ClassName("btn-primary")).Click();
-                Assert.Equal(SuccessfulRegistrationUrl, driver.Url);
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+                Assert.Equal(BaseUrl + "Authorization/Register", driver.Url);
             }
         }
     }

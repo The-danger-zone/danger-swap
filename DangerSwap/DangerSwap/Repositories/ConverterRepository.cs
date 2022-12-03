@@ -66,8 +66,8 @@ namespace DangerSwap.Repositories
         {
             return _dbContext.Currencies
                 .Include(e => e.Rate)
-                .First(q => q.Id == transaction.TransactionCurrency.ToId)
-                .Rate.RateUsd;
+                .First(q => q.Id == transaction.TransactionCurrency!.ToId)
+                .Rate!.RateUsd;
         }
     }
 }

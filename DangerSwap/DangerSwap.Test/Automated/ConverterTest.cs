@@ -55,6 +55,7 @@ namespace DangerSwap.Test.Automated
                 Assert.Equal(Url + expectedUri, _driver.Url);
             }
         }
+
         [SkippableTheory]
         [MemberData(nameof(ConverterData))]
         public void ConvertCurrency(int firstOption, int secondOption, int amount, bool isExpectedToBeConverted)

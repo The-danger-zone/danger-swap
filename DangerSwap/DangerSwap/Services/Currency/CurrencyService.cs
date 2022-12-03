@@ -7,8 +7,8 @@ namespace DangerSwap.Services
     public sealed class CurrencyService : ICurrencyService
     {
         private readonly CurrencyRepository _currencyRepository;
-        private readonly ScrapperService _scrapperService;
-        public CurrencyService(CurrencyRepository currencyRepository, ScrapperService scrapperService)
+        private readonly IScrapperService _scrapperService;
+        public CurrencyService(CurrencyRepository currencyRepository, IScrapperService scrapperService)
         {
             _currencyRepository = currencyRepository;
             _scrapperService = scrapperService;

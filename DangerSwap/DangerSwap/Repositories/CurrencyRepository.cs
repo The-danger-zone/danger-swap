@@ -1,10 +1,11 @@
 ﻿using DangerSwap.DbContexts;
+using DangerSwap.Interfaces;
 using DangerSwap.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DangerSwap.Repositories
 {
-    public class CurrencyRepository : IRepository<Currency>
+    public class CurrencyRepository : ICurrencyRepository
     {
         private readonly DangerSwapContext _dbContext;
 

@@ -9,12 +9,12 @@ namespace DangerSwap.Controllers;
 [Authorize]
 public class ConverterController : Controller
 {
-    private readonly ConverterRepository _converterRepository;
-    private readonly UserRepository _userRepository;
+    private readonly IConverterRepository _converterRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IScrapperService _scrapperService;
     private readonly ICurrencyService _currencyService;
 
-    public ConverterController(ConverterRepository converterRepository, UserRepository userRepository, IScrapperService scrapperService, ICurrencyService currencyService)
+    public ConverterController(IConverterRepository converterRepository, IUserRepository userRepository, IScrapperService scrapperService, ICurrencyService currencyService)
     {
         _converterRepository = converterRepository;
         _userRepository = userRepository;

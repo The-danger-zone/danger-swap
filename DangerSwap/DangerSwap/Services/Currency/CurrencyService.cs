@@ -6,9 +6,9 @@ namespace DangerSwap.Services;
 
 public sealed class CurrencyService : ICurrencyService
 {
-    private readonly CurrencyRepository _currencyRepository;
+    private readonly ICurrencyRepository _currencyRepository;
     private readonly IScrapperService _scrapperService;
-    public CurrencyService(CurrencyRepository currencyRepository, IScrapperService scrapperService)
+    public CurrencyService(ICurrencyRepository currencyRepository, IScrapperService scrapperService)
     {
         _currencyRepository = currencyRepository;
         _scrapperService = scrapperService;
@@ -39,6 +39,7 @@ public sealed class CurrencyService : ICurrencyService
     public async Task<Currency> GetCurrencyAsync(string currencyId)
     {
         var currency = await _currencyRepository.GetEntity(new Guid(currencyId));
+
         return currency;
     }
 

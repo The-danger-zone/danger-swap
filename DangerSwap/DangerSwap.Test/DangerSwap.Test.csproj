@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoFixture.Xunit" Version="4.17.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="Moq" Version="4.17.2" />
     <PackageReference Include="Selenium.Support" Version="4.6.0" />

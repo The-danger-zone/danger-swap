@@ -8,8 +8,8 @@ namespace DangerSwap.Test.Automated;
 
 public sealed class ConverterTest
 {
-    protected readonly string Url = "https://localhost:7145/";
-    protected readonly IWebDriver _driver = new ChromeDriver();
+    private readonly string Url = "https://localhost:7145/";
+    private readonly IWebDriver _driver = new ChromeDriver();
 
     [Fact(Skip = "Automation test")]
     public void LoadApplicationPage()

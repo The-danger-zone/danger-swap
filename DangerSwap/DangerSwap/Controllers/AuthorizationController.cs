@@ -1,6 +1,5 @@
-﻿using DangerSwap.DbContexts;
+﻿using DangerSwap.Interfaces;
 using DangerSwap.Models;
-using DangerSwap.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +7,10 @@ namespace DangerSwap.Controllers
 {
     public class AuthorizationController : Controller
     {
-        private readonly UserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
         private readonly SignInManager<User> _signInManager;
 
-        public AuthorizationController(UserRepository userRepository, SignInManager<User> signInManager)
+        public AuthorizationController(IUserRepository userRepository, SignInManager<User> signInManager)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));

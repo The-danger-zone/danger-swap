@@ -38,7 +38,7 @@
     <label class="form-label row text-center justify-content-center align-items-center website-font text-uppercase fs-1 fw-bold mt-5 mb-3">Detailed currency information</label>
     <div class="mb-5 pt-4 mx-auto col-8 pb-4">
         <!--Redirect to detailed information form-->
-        <select class="form-select text-center">
+        <select id="currency-information" class="form-select text-center">
             <option value="">Choose currency</option>
             @foreach (var item in ViewBag.CryptoCurrencies)
             {
@@ -49,5 +49,13 @@
                 <option value=@item.Id>@item.Symbol</option>
             }
         </select>
+        <div id="currency-detailed-information" class="row website-font">
+            <div>
+                <p>Symbol: <span id="symbol"></span></p>
+                <p>Name: <span id="name"></span></p>
+                <p>Rate: <span id="rate"></span></p>
+                <p>Description: <span id="description"></span></p>
+            </div>
+        </div>
     </div>
 </form>

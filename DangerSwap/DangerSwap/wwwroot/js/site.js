@@ -11,4 +11,20 @@ $(document).ready(function () {
         const eyeSlashed = 'fa-eye-slash';
         $('#toggle-password').toggleClass(eyeSlashed);
     }
+
+    $('#currency-information').on('change', function (event) {
+        const currencyId = event.currentTarget.value;
+        if (currencyId === '') {
+            $('#currency-detailed-information').hide();
+            return;
+        }
+
+        $.get(`currencies/${currencyId}`, (data) => {
+            $('#symbol').text(data.symbol !== '' ? data.symbol : '-');
+            $('#name').text(data.name !== '' ? data.name : '-');
+            $('#rate').text(data.rate.rateUsd);
+            $('#description').text(data.description !== '' ? data.description : '-');
+            $('#currency-detailed-information').show();
+        });
+    });
 });

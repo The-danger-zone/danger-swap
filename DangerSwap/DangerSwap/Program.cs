@@ -23,9 +23,9 @@ builder.Services.AddIdentity<User, IdentityRole>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<UserManager<User>>();
-builder.Services.AddScoped<UserRepository>();
-builder.Services.AddScoped<CurrencyRepository>();
-builder.Services.AddScoped<ConverterRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+builder.Services.AddScoped<IConverterRepository, ConverterRepository>();
 builder.Services.AddScoped<ICurrencyService, CurrencyService>();
 builder.Services.AddSingleton<IScrapperService, ScrapperService>(config =>
 new ScrapperService(configurations));

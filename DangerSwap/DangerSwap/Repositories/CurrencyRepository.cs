@@ -1,10 +1,11 @@
 ﻿using DangerSwap.DbContexts;
+using DangerSwap.Interfaces;
 using DangerSwap.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DangerSwap.Repositories
 {
-    public class CurrencyRepository : IRepository<Currency>
+    public class CurrencyRepository : ICurrencyRepository
     {
         private readonly DangerSwapContext _dbContext;
 
@@ -33,7 +34,9 @@ namespace DangerSwap.Repositories
 
         public Task<Currency> GetEntity(Guid id)
         {
-            return _dbContext.Currencies.FirstAsync(e => e.Id == id.ToString());
+            return _dbContext.Currencies
+                .Include(q => q.Rate)
+                .FirstAsync(e => e.Id == id.ToString());
         }
 
         public Task<Currency?> GetEntityBySymbol(string symbol)

@@ -1,16 +1,15 @@
-﻿
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using Xunit;
 
 namespace DangerSwap.Test.Automated;
 
-public class LoginTest
+public sealed class LoginTest
 {
     private readonly string _url = "https://localhost:7145/";
     private readonly IWebDriver _driver = new ChromeDriver();
 
-    [SkippableFact]
+    [Fact (Skip = "Automation test")]
     public void PasswordIsShown_AfterEyeIconBeingClicked()
     {
         // Arrange
@@ -34,7 +33,7 @@ public class LoginTest
         }
     }
 
-    [SkippableFact]
+    [Fact (Skip = "Automation test")]
     public void ValidationErrorIsShown_AfterTryingToLoginWithNonExistingUser()
     {
         // Arrange
@@ -59,7 +58,7 @@ public class LoginTest
         }
     }
 
-    [SkippableFact]
+    [Fact (Skip = "Automation test")]
     public void ValidationErrorIsShown_AfterTryingToLoginWithoutPassword()
     {
         // Arrange
@@ -82,7 +81,7 @@ public class LoginTest
         }
     }
 
-    [SkippableFact]
+    [Fact (Skip = "Automation test")]
     public void ValidationErrorIsShown_NoDataProvided()
     {
         // Arrange
@@ -103,7 +102,7 @@ public class LoginTest
         }
     }
 
-    [SkippableFact]
+    [Fact (Skip = "Automation test")]
     public void ValidationErrorIsShown_AfterTryingToLoginWithoutEmail()
     {
         // Arrange
@@ -126,7 +125,7 @@ public class LoginTest
         }
     }
 
-    [SkippableFact]
+    [Fact (Skip = "Automation test")]
     public void RedirectedToConverterPage_AfterSuccessfulLogin()
     {
         // Arrange

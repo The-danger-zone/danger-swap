@@ -3,6 +3,9 @@ requires = ["setuptools>=43.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.pytest.ini_options]
+pythonpath = [
+  "src/."
+]
 addopts = "--cov=scrapers --cov=filters --cov=parsers"
 testpaths = [
     "tests",

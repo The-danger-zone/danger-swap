@@ -15,10 +15,9 @@ public interface IUserRepository
 
     Task<User> GetEntity(string email, string password);
 
-    Task<User> GetEntityByUsername(string username);
+    Task<User?> GetEntityByUsername(string username);
 
     Task<bool> IsExist(string id);
 
     Task UpdateEntity(User entity);
 }
-

@@ -27,6 +27,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 builder.Services.AddScoped<IConverterRepository, ConverterRepository>();
 builder.Services.AddScoped<ICurrencyService, CurrencyService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IConverterService, ConverterService>();
 builder.Services.AddSingleton<IScrapperService, ScrapperService>(config =>
 new ScrapperService(configurations));
 builder.Services.ConfigureApplicationCookie(config =>

@@ -17,7 +17,6 @@ public sealed class PageTest
         string expectedTitle = "Home Page - DangerSwap";
         using (_driver)
         {
-            string expectedUri = "Authorization/Login";
             _driver.Manage().Window.Maximize();
             _driver.Navigate().GoToUrl(Url);
             var passwordInput = _driver.FindElement(By.Id("Password"));
@@ -164,4 +163,3 @@ public sealed class PageTest
         }
     }
 }
-

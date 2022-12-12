@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using AutoFixture;
 using DangerSwap.Controllers;
 using DangerSwap.Interfaces;
@@ -12,20 +13,62 @@ namespace DangerSwap.Test.Controllers;
 public sealed class ConverterControllerTest
 {
     private readonly Mock<IConverterRepository> _converterRepositoryMock;
-    private readonly Mock<IUserRepository> _userRepositoryMock;
+    private readonly Mock<IUserService> _userServiceMock;
     private readonly Mock<IScrapperService> _scrapperServiceMock;
     private readonly Mock<ICurrencyService> _currencyServiceMock;
+    private readonly Mock<IConverterService> _converterServiceMock;
     private readonly ConverterController _sut;
     private readonly Fixture _fixture;
     public ConverterControllerTest()
     {
         _fixture = new Fixture();
         _converterRepositoryMock = new Mock<IConverterRepository>();
-        _userRepositoryMock = new Mock<IUserRepository>();
         _scrapperServiceMock = new Mock<IScrapperService>();
         _currencyServiceMock = new Mock<ICurrencyService>();
-        _sut = new ConverterController(_converterRepositoryMock.Object, _userRepositoryMock.Object,
-            _scrapperServiceMock.Object, _currencyServiceMock.Object);
+        _userServiceMock= new Mock<IUserService>();
+        _converterServiceMock = new Mock<IConverterService>();
+        _sut = new ConverterController(_converterRepositoryMock.Object,
+            _scrapperServiceMock.Object, _currencyServiceMock.Object, _userServiceMock.Object, _converterServiceMock.Object);
+    }
+
+    [Fact]
+    public async Task Convert_InvalidModelState_UserServiceNotCalled_ConverterServiceNotCalled()
+    {
+        // Arrange
+        var transaction = new Transaction();
+        var errorKey = _fixture.Create<string>();
+        var errorMessage = _fixture.Create<string>();
+        _sut.ModelState.AddModelError(errorKey, errorMessage);
+
+        // Act
+        var result = await _sut.Convert(transaction);
+
+        // Assert
+        Assert.NotNull(result);
+        _userServiceMock.Verify(_ => _.GetUser(It.IsAny<ClaimsPrincipal>()), Times.Never);
+        _converterServiceMock.Verify(_ => _.ConvertCurrency(transaction), Times.Never);
+    }
+
+    [Fact]
+    public async Task Convert_ValidModelState_ServicesAreCalled()
+    {
+        // Arrange
+        var transaction = new Transaction();
+        var user = new User();
+        transaction.User = user;
+        var errorKey = _fixture.Create<string>();
+        var errorMessage = _fixture.Create<string>();
+        _userServiceMock.Setup(_ => _.GetUser(It.IsAny<ClaimsPrincipal>()))
+            .ReturnsAsync(user);
+        _converterServiceMock.Setup(_ => _.ConvertCurrency(transaction));
+
+        // Act
+        var result = await _sut.Convert(transaction);
+
+        // Assert
+        Assert.NotNull(result);
+        _userServiceMock.VerifyAll();
+        _converterServiceMock.VerifyAll();
     }
 
     [Fact]

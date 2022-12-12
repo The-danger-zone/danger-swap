@@ -25,7 +25,7 @@ public sealed class CurrencyServiceTest
     }
 
     [Fact]
-    public async Task GetCurrencyAsync_CallsService()
+    public async Task GetCurrencyAsync_CallsRepository()
     {
         // Arrange
         var currencyId = _fixture.Create<string>();

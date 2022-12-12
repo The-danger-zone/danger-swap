@@ -1,5 +1,4 @@
 ﻿using DangerSwap.Models;
-using DangerSwap.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using DangerSwap.Interfaces;
@@ -10,16 +9,18 @@ namespace DangerSwap.Controllers;
 public class ConverterController : Controller
 {
     private readonly IConverterRepository _converterRepository;
-    private readonly IUserRepository _userRepository;
+    private readonly IUserService _userService;
     private readonly IScrapperService _scrapperService;
     private readonly ICurrencyService _currencyService;
+    private readonly IConverterService _converterService;
 
-    public ConverterController(IConverterRepository converterRepository, IUserRepository userRepository, IScrapperService scrapperService, ICurrencyService currencyService)
+    public ConverterController(IConverterRepository converterRepository, IScrapperService scrapperService, ICurrencyService currencyService, IUserService userService, IConverterService converterService)
     {
         _converterRepository = converterRepository;
-        _userRepository = userRepository;
         _scrapperService = scrapperService;
         _currencyService = currencyService;
+        _userService = userService;
+        _converterService = converterService;
     }
 
     //TODO: make a task manager to run scrappers
@@ -43,15 +44,12 @@ public class ConverterController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Convert(Transaction transaction)
     {
-        decimal convertedEquivalent = default;
-        if (ModelState.IsValid)
-        {
-            string username = User?.Identity?.Name ?? string.Empty;
-            var user = await _userRepository.GetEntityByUsername(username);
-            transaction.User = user;
-            await _converterRepository.CreateTransaction(transaction);
-            convertedEquivalent = _converterRepository.Convert(transaction);
-        }
+        if (!ModelState.IsValid)
+            return RedirectToAction(nameof(Index), new { equalAmount = decimal.Zero });
+
+        var user = await _userService.GetUser(User);
+        transaction.User = user;
+        var convertedEquivalent = await _converterService.ConvertCurrency(transaction);
 
         return RedirectToAction(nameof(Index), new { equalAmount = convertedEquivalent });
     }

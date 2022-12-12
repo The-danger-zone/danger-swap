@@ -50,17 +50,17 @@ public sealed class ConverterRepository : IConverterRepository
             .Currencies
             .Include(e => e.Rate)
             .First(e => e.Id == transaction
-            .TransactionCurrency
+            .TransactionCurrency!
             .FromId)
             .Rate?
             .RateUsd;
-        return (decimal)(fromCurrencyRate * (double?)transaction.Amount);
+        return (decimal)(fromCurrencyRate.GetValueOrDefault() * (double)transaction.Amount.GetValueOrDefault());
     }
 
-    private decimal CalculateCryptoEquivalent(decimal fiatEquivalentAmount, Transaction transaction)
+    private static decimal CalculateCryptoEquivalent(decimal fiatEquivalentAmount, Transaction transaction)
     {
         var cryptoRateUsd = transaction?.Rate;
-        return fiatEquivalentAmount / (decimal)cryptoRateUsd;
+        return fiatEquivalentAmount / (decimal)cryptoRateUsd.GetValueOrDefault();
     }
 
     private double GetRate(Transaction transaction)

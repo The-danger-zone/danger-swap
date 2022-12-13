@@ -30,12 +30,12 @@ public class ConverterController : Controller
 
         var fiatCurrencies = _converterRepository.GetAllCurrencies(true);
         var cryptoCurrencies = _converterRepository.GetAllCurrencies(false);
+        var equalAmountString = equalAmount == 0.0 ? "0" : equalAmount.ToString("F5");
         ViewBag.FiatCurrencies = fiatCurrencies;
         ViewBag.CryptoCurrencies = cryptoCurrencies;
-        ViewBag.EqualAmount = equalAmount.ToString("F99").TrimEnd('0');
+        ViewBag.EqualAmount = equalAmountString;
 
-        await _currencyService.UpsertCurrenciesAsync(true);
-        await _currencyService.UpsertCurrenciesAsync(false);
+        await _currencyService.UpsertCurrenciesAsync();
 
         return View();
     }

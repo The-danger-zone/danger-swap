@@ -1,6 +1,5 @@
 ﻿using DangerSwap.Interfaces;
 using DangerSwap.Models;
-using DangerSwap.Repositories;
 
 namespace DangerSwap.Services;
 
@@ -14,15 +13,29 @@ public sealed class CurrencyService : ICurrencyService
         _scrapperService = scrapperService;
     }
 
-    public async Task UpsertCurrenciesAsync(bool isFiat)
+    public async Task UpsertCurrenciesAsync()
     {
-        var currencies = _scrapperService.ReadScrappedCurrencies(isFiat).ToList();
-        if (!currencies.Any())
+        var currencies = _scrapperService.ReadScrappedCurrencies();
+
+        await InsertOrUpdateCurrencies(currencies.Fiat, true);
+        await InsertOrUpdateCurrencies(currencies.Crypto, false);
+    }
+
+    public async Task<Currency> GetCurrencyAsync(string currencyId)
+    {
+        var currency = await _currencyRepository.GetEntity(new Guid(currencyId));
+
+        return currency;
+    }
+
+    private async Task InsertOrUpdateCurrencies(IEnumerable<ScrappedCurrency> scrappedCurrencies, bool isFiat)
+    {
+        if (!scrappedCurrencies.Any())
         {
             return;
         }
 
-        foreach (var item in currencies)
+        foreach (var item in scrappedCurrencies)
         {
             var originCurrency = await _currencyRepository.GetEntityBySymbol(item.Symbol);
             if (originCurrency is null)
@@ -34,13 +47,6 @@ public sealed class CurrencyService : ICurrencyService
                 await UpdateCurrencyAsync(originCurrency, item);
             }
         }
-    }
-
-    public async Task<Currency> GetCurrencyAsync(string currencyId)
-    {
-        var currency = await _currencyRepository.GetEntity(new Guid(currencyId));
-
-        return currency;
     }
 
     private async Task CreateCurrencyAsync(ScrappedCurrency scrappedCurrency, bool isFiat)

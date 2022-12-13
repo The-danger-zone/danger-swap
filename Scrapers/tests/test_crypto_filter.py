@@ -1,12 +1,12 @@
 import unittest
-from filters.crypto_filter import filter_coins
+from filters.filter import filter_currencies
 
 class TestCryptoFilter(unittest.TestCase):
 
     def test_empty_coins(self):
         coins = []
         required_coins = ['SOL', 'ETH', 'LINK']
-        self.assertRaises(ValueError, filter_coins, *[coins, required_coins])
+        self.assertRaises(ValueError, filter_currencies, *[coins, required_coins])
 
     def test_empty_required_coins(self):
         coins = [{'name': 'Bitcoin', 'symbol': 'BTC', 'price': '$47,200.43', 'change': '-1.5%'}, 
@@ -26,12 +26,12 @@ class TestCryptoFilter(unittest.TestCase):
         {'name': 'Shiba Inu', 'symbol': 'SHIB', 'price': '$0.000027167441', 'change': '-3.8%'},
         {'name': 'Chainlink', 'symbol': 'LINK', 'price': '$17.16', 'change': '-1.1%'}]
         required_coins = []
-        self.assertRaises(ValueError, filter_coins, *[coins, required_coins])
+        self.assertRaises(ValueError, filter_currencies, *[coins, required_coins])
         
     def test_empty_coins_required_coins(self):
         coins = []
         required_coins = []
-        self.assertRaises(ValueError, filter_coins, *[coins, required_coins])
+        self.assertRaises(ValueError, filter_currencies, *[coins, required_coins])
 
     def test_required_coins_filtered(self):
         coins = [{'name': 'Bitcoin', 'symbol': 'BTC', 'price': '$47,200.43', 'change': '-1.5%'}, 
@@ -46,7 +46,7 @@ class TestCryptoFilter(unittest.TestCase):
 
         required_coins = ['SOL', 'ETH', 'LINK']
 
-        filtered_coins = filter_coins(coins, required_coins)
+        filtered_coins = filter_currencies(coins, required_coins)
 
         assert len(filtered_coins) == 3
 
@@ -56,7 +56,7 @@ class TestCryptoFilter(unittest.TestCase):
 
         required_coins = ['SOL', 'ETH', 'LINK']
 
-        filtered_coins = filter_coins(coins, required_coins)
+        filtered_coins = filter_currencies(coins, required_coins)
 
         assert len(filtered_coins) == 1
 

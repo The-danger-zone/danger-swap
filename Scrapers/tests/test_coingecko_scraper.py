@@ -1,7 +1,7 @@
 import unittest
-from scrapers.scrape_coinlib import get_data
+from scrapers.scrape_coingecko import get_data
 
-class TestCoinLibScraper(unittest.TestCase):
+class TestCoinGeckoScraper(unittest.TestCase):
 
     def setUp(self):
         self.coins = get_data()
@@ -10,7 +10,7 @@ class TestCoinLibScraper(unittest.TestCase):
         self.assertTrue(self.coins)
 
     def test_coin_data_amount(self):
-        self.assertEqual(50, len(self.coins))
+        self.assertEqual(49, len(self.coins))
 
     def test_numof_data_values(self):
         self.assertEqual(4, len(self.coins[0]))

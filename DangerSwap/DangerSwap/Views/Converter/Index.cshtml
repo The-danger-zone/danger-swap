@@ -19,7 +19,7 @@
             <option value="">Choose Crypto Currency</option>
             @foreach (var item in ViewBag.CryptoCurrencies)
             {
-                <option value=@item.Id>@item.Symbol</option>
+                <option value=@item.Id>@item.Symbol | @item.Rate.RateUsd</option>
             }
         </select>
         <span asp-validation-for="TransactionCurrency.ToId" class="text-danger"></span>

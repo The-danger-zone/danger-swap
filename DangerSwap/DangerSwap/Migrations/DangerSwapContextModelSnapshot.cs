@@ -45,8 +45,7 @@ namespace DangerSwap.Migrations
 
                     b.HasIndex("CurrencyId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Capitals");
                 });
@@ -196,9 +195,6 @@ namespace DangerSwap.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CapitalId")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Citizenship")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -282,8 +278,8 @@ namespace DangerSwap.Migrations
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Citizenship = "",
-                            ConcurrencyStamp = "6fb2a157-9964-47f4-a61d-1cb092c26ee4",
-                            CreatedAt = new DateTime(2022, 12, 7, 20, 28, 15, 168, DateTimeKind.Utc).AddTicks(400),
+                            ConcurrencyStamp = "ff0c145a-a802-4ee3-8595-fd479849a38d",
+                            CreatedAt = new DateTime(2022, 12, 20, 18, 17, 21, 39, DateTimeKind.Utc).AddTicks(5554),
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -436,8 +432,8 @@ namespace DangerSwap.Migrations
                         .IsRequired();
 
                     b.HasOne("DangerSwap.Models.User", "User")
-                        .WithOne("Capital")
-                        .HasForeignKey("DangerSwap.Models.Capital", "UserId");
+                        .WithMany("Capitals")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Currency");
 
@@ -550,7 +546,7 @@ namespace DangerSwap.Migrations
 
             modelBuilder.Entity("DangerSwap.Models.User", b =>
                 {
-                    b.Navigation("Capital");
+                    b.Navigation("Capitals");
 
                     b.Navigation("Transactions");
                 });

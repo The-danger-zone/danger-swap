@@ -7,7 +7,7 @@ public sealed class Capital : BaseEntity
 {
     public string CurrencyId { get; set; } = null!;
 
-    public Currency Currency { get; set; } = null!;
+    public Currency? Currency { get; set; }
 
     [Required]
     public decimal Amount { get; set; }

@@ -26,7 +26,6 @@
                 <div class="mb-3 pt-4 ">
                     <div class="input-group">
                         <input type="password" asp-for="NewPassword" id="password" class="form-control password block w-full" placeholder="Enter new password" maxlength="@StringLengthConst.password" />
-                        <span class="input-group-text"><em class="far fa-eye" id="toggle-password"></em></span>
                     </div>
                     <span asp-validation-for="NewPassword" class="text-danger"></span>
                 </div>
@@ -34,7 +33,6 @@
                 <div class="mb-3 pt-4 ">
                     <div class="input-group">
                         <input type="password" asp-for="ConfirmedNewPassword" id="password" class="form-control password block w-full" placeholder="Repeat new password" maxlength="@StringLengthConst.password" />
-                        <span class="input-group-text"><em class="far fa-eye" id="toggle-password"></em></span>
                     </div>
                     <span asp-validation-for="ConfirmedNewPassword" class="text-danger"></span>
                 </div>
@@ -50,5 +48,21 @@
                 </div>
             </div>
         </form>
+    </div>
+    <div class="text-center">
+        <h2>Capital</h2>
+        <div class="form-control mb-5 capital-list">
+            <h3>Your capital:</h3>
+            <ul>
+                @foreach (var capital in ViewBag.Capitals)
+                {
+                    <li>@capital.Currency.Name | @capital.Amount | @(capital.Amount * (decimal)capital.Currency.Rate.RateUsd)</li>
+                }
+            </ul>
+        </div>
+        <div>
+            <a href="/Profile/DepositCapital" class="button btn btn-primary">Deposit capital</a>
+            <a href="/Profile/WithdrawCapital" class="button btn btn-primary">Withdraw capital</a>
+        </div>
     </div>
 </div>

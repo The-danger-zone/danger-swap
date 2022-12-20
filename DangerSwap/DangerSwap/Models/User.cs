@@ -37,7 +37,5 @@ public sealed class User : IdentityUser
 
     public ICollection<Transaction>? Transactions { get; set; }
 
-    public string? CapitalId { get; set; }
-
-    public Capital? Capital { get; set; }
+    public ICollection<Capital> Capitals { get; set; }
 }

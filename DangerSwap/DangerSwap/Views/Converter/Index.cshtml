@@ -1,5 +1,6 @@
-﻿@model Transaction
+﻿@model TransactionViewModel
 @using DangerSwap.Infrastructure
+@using DangerSwap.Models.ViewModel;
 
 @{
     ViewData["Title"] = "Home Page";
@@ -7,28 +8,32 @@
 <form asp-controller="Converter" asp-action="Convert" method="post">
     <label class="form-label row justify-content-center align-items-center website-font text-uppercase fs-1 fw-bold mt-5 mb-3">Converter</label>
     <div class="mb-5 pt-4 mx-auto col-8 pb-4  ">
-        <select asp-for="TransactionCurrency.FromId" class="form-select float-start currency-selection-fields">
+        <select asp-for="Transaction.TransactionCurrency.FromId" class="form-select float-start currency-selection-fields">
             <option value="">Choose Fiat Currency</option>
             @foreach (var item in ViewBag.FiatCurrencies)
             {
                 <option value=@item.Id>@item.Symbol | @item.Rate.RateUsd</option>
             }
         </select>
-        <span asp-validation-for="TransactionCurrency.FromId" class="text-danger"></span>
-        <select asp-for="TransactionCurrency.ToId" class="form-select float-end currency-selection-fields">
+        <span asp-validation-for="Transaction.TransactionCurrency.FromId" class="text-danger"></span>
+        <select asp-for="Transaction.TransactionCurrency.ToId" class="form-select float-end currency-selection-fields">
             <option value="">Choose Crypto Currency</option>
             @foreach (var item in ViewBag.CryptoCurrencies)
             {
                 <option value=@item.Id>@item.Symbol | @item.Rate.RateUsd</option>
             }
         </select>
-        <span asp-validation-for="TransactionCurrency.ToId" class="text-danger"></span>
-
+        <span asp-validation-for="Transaction.TransactionCurrency.ToId" class="text-danger"></span>
+    </div>
+    <div class="mb-5 pt-4 mx-auto col-8 mt-4 text-center">
+        <input type="checkbox" asp-for="IsCapitalUsed" class="form-check-input" id="isCapitalUsedCheck" />
+        <label class="form-check-label" for="isCapitalUsedCheck">Use my capital</label>
+        <span asp-validation-for="IsCapitalUsed" class="text-danger"></span>
     </div>
 
     <div class="mb-5 pt-4 mx-auto col-8 mt-4">
-        <input type="text" asp-for="Amount" class="form-control float-start converter-value-fields" placeholder="Amount" />
-        <span asp-validation-for="Amount" class="text-danger"></span>
+        <input type="text" asp-for="Transaction.Amount" class="form-control float-start converter-value-fields" value="@ViewBag.ConvertableAmount" placeholder="Amount" />
+        <span asp-validation-for="Transaction.Amount" class="text-danger"></span>
         <input type="text" class="form-control float-end converter-value-fields" disabled value="@ViewBag.EqualAmount" />
         <input type="text" class="form-control mb-4 equality-sign border-0" disabled value="=" />
     </div>

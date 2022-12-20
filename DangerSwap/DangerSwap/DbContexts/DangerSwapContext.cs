@@ -22,7 +22,6 @@ namespace DangerSwap.DbContexts
             base.OnModelCreating(builder);
             const string ADMIN_ID = "a18be9c0-aa65-4af8-bd17-00bd9344e575";
 
-            var hasher = new PasswordHasher<User>();
             builder.Entity<User>().HasData(new User
             {
                 Id = ADMIN_ID,

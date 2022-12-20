@@ -5,6 +5,6 @@ namespace DangerSwap.Interfaces
     public interface IScrapperService
     {
         void RunScrappers();
-        IEnumerable<ScrappedCurrency> ReadScrappedCurrencies(bool isFiat);
+        ScrappedRates ReadScrappedCurrencies();
     }
 }

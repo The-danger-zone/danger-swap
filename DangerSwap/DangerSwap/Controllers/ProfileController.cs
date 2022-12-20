@@ -1,21 +1,20 @@
-﻿using DangerSwap.Models;
-using DangerSwap.Repositories;
-using Microsoft.AspNetCore.Identity;
+﻿using DangerSwap.Interfaces;
+using DangerSwap.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DangerSwap.Controllers
 {
     public class ProfileController : Controller
     {
-        private readonly UserManager<User> _userManager;
+        private readonly IUserService _userService;
 
-        public ProfileController(UserManager<User> userManager)
+        public ProfileController(IUserService userService)
         {
-            _userManager = userManager;
+            _userService = userService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
@@ -24,21 +23,13 @@ namespace DangerSwap.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(UpdateableUser updateableUser)
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                if(updateableUser.NewEmail == updateableUser.ConfirmedNewEmail && updateableUser.ConfirmedNewEmail != user.Email)
-                {
-                    var token = await _userManager.GenerateChangeEmailTokenAsync(user, updateableUser.NewEmail);
-                    await _userManager.ChangeEmailAsync(user, updateableUser.NewEmail, token);
-                }
-                if (updateableUser.OldPassword == user?.Password && updateableUser.NewPassword == updateableUser.ConfirmedNewPassword)
-                {
-                    await _userManager.ChangePasswordAsync(user, updateableUser.OldPassword, updateableUser.ConfirmedNewPassword);
-                }
-                return RedirectToAction(nameof(Index), "Converter");
+                return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction(nameof(Index));
+            await _userService.UpdateUserInfo(updateableUser, User);
+
+            return RedirectToAction(nameof(Index), "Converter");
         }
     }
 }

@@ -1,0 +1,36 @@
+﻿@model Capital
+@using DangerSwap.Infrastructure
+@using DangerSwap.Utilities
+
+<div class="container mt-5">
+    <div class="text-center mt-3">
+        <h2>Capital</h2>
+        <div class="capital-list">
+            <h3>Your capital:</h3>
+            <ul>
+                @foreach (var capital in ViewBag.Capitals)
+                {
+                    <li>@capital.Currency.Name | @capital.Amount | @(capital.Amount * (decimal)capital.Currency.Rate.RateUsd) $</li>
+                }
+            </ul>
+        </div>
+    </div>
+    <form asp-controller="Profile" class="form-control mt-5" asp-action="WithdrawCapital" method="post">
+        <select asp-for="CurrencyId" class="form-select text-center">
+            <option value="">Choose currency</option>
+            @foreach (var item in ViewBag.Currencies)
+            {
+                <option value=@item.Id>@item.Symbol | @item.Rate.RateUsd</option>
+            }
+        </select>
+        <div class="mb-3 pt-4 ">
+            <div class="input-group">
+                <input type="text" asp-for="Amount" class="form-control float-start converter-value-fields" placeholder="Amount" />
+            </div>
+            <span asp-validation-for="Amount" class="text-danger"></span>
+        </div>
+        <div class="text-center mb-3 pt-4 align-content-center ">
+            <input type="submit" class="btn btn-primary justify-content-center btn-block w-25" value="Withdraw" />
+        </div>
+    </form>
+</div>

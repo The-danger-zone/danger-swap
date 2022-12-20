@@ -3,6 +3,7 @@ using System;
 using DangerSwap.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DangerSwap.Migrations
 {
     [DbContext(typeof(DangerSwapContext))]
-    partial class DangerSwapContextModelSnapshot : ModelSnapshot
+    [Migration("20221207202815_UserOneToOneRelationshipWithCapital")]
+    partial class UserOneToOneRelationshipWithCapital
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.3");
@@ -45,7 +47,8 @@ namespace DangerSwap.Migrations
 
                     b.HasIndex("CurrencyId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Capitals");
                 });
@@ -195,6 +198,9 @@ namespace DangerSwap.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("CapitalId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Citizenship")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -278,8 +284,8 @@ namespace DangerSwap.Migrations
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Citizenship = "",
-                            ConcurrencyStamp = "ff0c145a-a802-4ee3-8595-fd479849a38d",
-                            CreatedAt = new DateTime(2022, 12, 20, 18, 17, 21, 39, DateTimeKind.Utc).AddTicks(5554),
+                            ConcurrencyStamp = "6fb2a157-9964-47f4-a61d-1cb092c26ee4",
+                            CreatedAt = new DateTime(2022, 12, 7, 20, 28, 15, 168, DateTimeKind.Utc).AddTicks(400),
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -432,8 +438,8 @@ namespace DangerSwap.Migrations
                         .IsRequired();
 
                     b.HasOne("DangerSwap.Models.User", "User")
-                        .WithMany("Capitals")
-                        .HasForeignKey("UserId");
+                        .WithOne("Capital")
+                        .HasForeignKey("DangerSwap.Models.Capital", "UserId");
 
                     b.Navigation("Currency");
 
@@ -546,7 +552,7 @@ namespace DangerSwap.Migrations
 
             modelBuilder.Entity("DangerSwap.Models.User", b =>
                 {
-                    b.Navigation("Capitals");
+                    b.Navigation("Capital");
 
                     b.Navigation("Transactions");
                 });

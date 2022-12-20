@@ -3,6 +3,7 @@ using System;
 using DangerSwap.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DangerSwap.Migrations
 {
     [DbContext(typeof(DangerSwapContext))]
-    partial class DangerSwapContextModelSnapshot : ModelSnapshot
+    [Migration("20221207202202_AddCapitalModel")]
+    partial class AddCapitalModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.3");
@@ -38,14 +40,9 @@ namespace DangerSwap.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CurrencyId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Capitals");
                 });
@@ -278,8 +275,8 @@ namespace DangerSwap.Migrations
                             AccessFailedCount = 0,
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Citizenship = "",
-                            ConcurrencyStamp = "ff0c145a-a802-4ee3-8595-fd479849a38d",
-                            CreatedAt = new DateTime(2022, 12, 20, 18, 17, 21, 39, DateTimeKind.Utc).AddTicks(5554),
+                            ConcurrencyStamp = "01777d12-6529-4a1b-8816-a65005585ca5",
+                            CreatedAt = new DateTime(2022, 12, 7, 20, 22, 2, 476, DateTimeKind.Utc).AddTicks(9625),
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -431,13 +428,7 @@ namespace DangerSwap.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DangerSwap.Models.User", "User")
-                        .WithMany("Capitals")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Currency");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DangerSwap.Models.Currency", b =>
@@ -546,8 +537,6 @@ namespace DangerSwap.Migrations
 
             modelBuilder.Entity("DangerSwap.Models.User", b =>
                 {
-                    b.Navigation("Capitals");
-
                     b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618

@@ -15,6 +15,7 @@ namespace DangerSwap.DbContexts
         public DbSet<Currency> Currencies { get; set; } = null!;
         public DbSet<Rate> Rate { get; set; } = null!;
         public DbSet<TransactionCurrency> TransactionCurrencies { get; set; } = null!;
+        public DbSet<Capital> Capitals { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

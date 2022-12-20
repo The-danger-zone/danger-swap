@@ -12,14 +12,18 @@ namespace DangerSwap.Test.Controllers;
 public sealed class ProfileControllerTest
 {
     private readonly Mock<IUserService> _userServiceMock;
+    private readonly Mock<ICapitalService> _capitalServiceMock;
+    private readonly Mock<IConverterRepository> _converterRepositoryMock;
     private readonly Fixture _fixture;
     private readonly ProfileController _sut;
 
     public ProfileControllerTest()
     {
         _userServiceMock = new Mock<IUserService>();
+        _capitalServiceMock = new Mock<ICapitalService>();
+        _converterRepositoryMock = new Mock<IConverterRepository>();
         _fixture = new Fixture();
-        _sut = new ProfileController(_userServiceMock.Object);
+        _sut = new ProfileController(_userServiceMock.Object, _converterRepositoryMock.Object, _capitalServiceMock.Object);
     }
 
     [Fact]
